@@ -5,12 +5,14 @@ from myblog.models import Post, Category
 
 class CategoryInline(admin.TabularInline):
     model = Category.posts.through
+    fields = ('category',)
 
 class PostAdmin(admin.ModelAdmin):
+    fields = ['title', 'text', 'author', 'published_date']
     inlines = [CategoryInline,]
     
 class CategoryAdmin(admin.ModelAdmin):
-    exclude = ('posts',)
+    exclude = ['posts',]
 
 
 admin.site.register(Post, PostAdmin)
